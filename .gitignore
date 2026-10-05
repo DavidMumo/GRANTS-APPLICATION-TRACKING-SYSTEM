@@ -20,3 +20,9 @@ uploads/
 # Operating system files
 .DS_Store
 Thumbs.db
+
+# IDE settings
+.vscode/
+
+# Local database configuration
+config.local.php
