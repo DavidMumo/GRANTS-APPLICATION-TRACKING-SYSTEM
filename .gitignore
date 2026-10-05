@@ -1,0 +1,22 @@
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies and generated files
+vendor/
+node_modules/
+
+# Temporary and log files
+*.log
+*.tmp
+
+# User uploads and private documents
+uploads/
+*.sql
+*.bak
+
+# Operating system files
+.DS_Store
+Thumbs.db
