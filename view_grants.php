@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("db_connect.php");
-include("navbar.php");
+
 
 // Prevent access if the user is not logged in
 if (!isset($_SESSION['user_id'])) {

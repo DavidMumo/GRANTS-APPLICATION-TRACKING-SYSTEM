@@ -1,7 +1,6 @@
 <?php
 session_start();
 include("db_connect.php");
-include("navbar.php");
 
 if(!isset($_SESSION['user_id']))
 {

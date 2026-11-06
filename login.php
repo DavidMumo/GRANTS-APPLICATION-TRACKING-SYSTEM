@@ -542,7 +542,7 @@ if (isset($_POST['login'])) {
              LOGIN FORM
         =========================== -->
 
-        <form method="POST">
+        <form method="POST" action="login.php" autocomplete="off">
 
 
             <!-- ROLE -->
@@ -604,12 +604,14 @@ if (isset($_POST['login'])) {
 
 
                 <input
-                    type="email"
-                    name="email"
-                    class="form-control"
-                    placeholder="Enter your email address"
-                    required
-                >
+    type="email"
+    name="email"
+    id="email"
+    placeholder="Enter your email address"
+    autocomplete="off"
+    value=""
+    required
+>
 
             </div>
 
@@ -631,13 +633,14 @@ if (isset($_POST['login'])) {
                 <div class="input-group">
 
                     <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        class="form-control"
-                        placeholder="Enter your password"
-                        required
-                    >
+    type="password"
+    name="password"
+    id="password"
+    placeholder="Enter your password"
+    autocomplete="new-password"
+    value=""
+    required
+>
 
 
                     <button
@@ -713,8 +716,7 @@ if (isset($_POST['login'])) {
 
 
 <!-- ==============================
-     FOOTER
-============================== -->
+
 
 <div class="footer">
 
