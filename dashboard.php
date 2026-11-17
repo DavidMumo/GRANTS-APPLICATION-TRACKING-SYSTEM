@@ -123,6 +123,269 @@ $role = $_SESSION['role'] ?? "Researcher";
             font-weight: 600;
         }
 
+/* ===================================
+   RESEARCHER DASHBOARD HERO
+=================================== */
+
+.research-hero {
+    background: linear-gradient(120deg, #14213d, #1e497d, #2563eb);
+    color: white;
+    min-height: 300px;
+    border-radius: 18px;
+    padding: 35px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.15);
+}
+
+.hero-text {
+    max-width: 570px;
+    position: relative;
+    z-index: 3;
+}
+
+.hero-label {
+    display: inline-block;
+    background: rgba(255,255,255,0.16);
+    border-radius: 30px;
+    padding: 8px 14px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    margin-bottom: 18px;
+}
+
+.hero-text h2 {
+    font-size: 30px;
+    font-weight: 750;
+    margin-bottom: 13px;
+}
+
+.hero-text p {
+    color: #dbeafe;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.hero-btn {
+    display: inline-block;
+    background: white;
+    color: #1d4ed8;
+    text-decoration: none;
+    padding: 11px 17px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.hero-btn:hover {
+    background: #dbeafe;
+    color: #14213d;
+    transform: translateY(-3px);
+}
+
+.secondary-btn {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.5);
+}
+
+.secondary-btn:hover {
+    background: white;
+    color: #1d4ed8;
+}
+
+.role-label {
+    display: block;
+    margin-top: 18px;
+    color: #dbeafe;
+    font-size: 12px;
+}
+
+/* GRAPHIC AREA */
+
+.research-art {
+    width: 290px;
+    height: 245px;
+    position: relative;
+    flex-shrink: 0;
+    margin-right: 25px;
+}
+
+.art-center {
+    position: absolute;
+    left: 105px;
+    top: 80px;
+    width: 85px;
+    height: 85px;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    z-index: 2;
+    animation: researchPulse 3s infinite ease-in-out;
+}
+
+.art-orbit {
+    position: absolute;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.orbit-a {
+    width: 175px;
+    height: 175px;
+}
+
+.orbit-b {
+    width: 255px;
+    height: 235px;
+}
+
+.art-icon {
+    position: absolute;
+    height: 53px;
+    width: 53px;
+    background: white;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    z-index: 3;
+    animation: researchFloat 3s infinite ease-in-out;
+}
+
+.art-one {
+    color: #2563eb;
+    left: 115px;
+    top: 8px;
+}
+
+.art-two {
+    color: #d69b32;
+    right: 0;
+    top: 95px;
+    animation-delay: 0.6s;
+}
+
+.art-three {
+    color: #16a36a;
+    left: 55px;
+    bottom: 0;
+    animation-delay: 1.2s;
+}
+
+.art-four {
+    color: #865ac7;
+    left: 0;
+    top: 35px;
+    animation-delay: 1.8s;
+}
+
+@keyframes researchFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-13px);
+    }
+}
+
+@keyframes researchPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.09);
+        box-shadow: 0 0 25px rgba(255,255,255,0.3);
+    }
+}
+
+/* STATISTICS ANIMATION */
+
+.stat-card {
+    animation: statisticAppear 0.7s ease both;
+}
+
+.stat-card:nth-child(2) { animation-delay: 0.1s; }
+.stat-card:nth-child(3) { animation-delay: 0.2s; }
+.stat-card:nth-child(4) { animation-delay: 0.3s; }
+.stat-card:nth-child(5) { animation-delay: 0.4s; }
+.stat-card:nth-child(6) { animation-delay: 0.5s; }
+
+@keyframes statisticAppear {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* QUICK ACTION HOVER EFFECTS */
+
+.quick-actions {
+    transition: 0.3s ease;
+}
+
+.quick-actions .btn {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.quick-actions .btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 768px) {
+    .research-hero {
+        padding: 25px;
+        min-height: 250px;
+    }
+
+    .research-art {
+        display: none;
+    }
+
+    .hero-text h2 {
+        font-size: 24px;
+    }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+    .research-hero *,
+    .stat-card,
+    .quick-actions .btn {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+
     </style>
 
 </head>
@@ -136,35 +399,71 @@ $role = $_SESSION['role'] ?? "Researcher";
 <div class="container-fluid px-4 py-4">
 
     <!-- Welcome Section -->
-    <div class="card shadow-sm welcome-card mb-4">
+    
+<!-- ANIMATED RESEARCHER HERO -->
+<div class="research-hero mb-4">
 
-        <div class="card-body p-4">
+    <div class="hero-text">
 
-            <h2 class="text-primary fw-bold">
+        <span class="hero-label">
+            <i class="bi bi-stars"></i>
+            RESEARCHER WORKSPACE
+        </span>
 
-                Welcome,
-                <?php echo htmlspecialchars($fullname); ?>
+        <h2>Research & Funding Opportunities</h2>
 
-            </h2>
+        <p>
+            Discover funding opportunities, manage your grant applications
+            and connect with researchers for meaningful collaborations.
+        </p>
 
-            <p class="text-muted mb-3">
+        <div class="hero-actions">
+            <a href="view_grants.php" class="hero-btn">
+                <i class="bi bi-search"></i>
+                Explore Grants
+            </a>
 
-                Welcome to the Grant Application Tracking and
-                Collaboration Management System.
+            <a href="view_calls.php" class="hero-btn secondary-btn">
+                <i class="bi bi-people"></i>
+                Find Collaborations
+            </a>
+        </div>
 
-            </p>
+        <span class="role-label">
+            <i class="bi bi-person-circle"></i>
+            <?php echo htmlspecialchars($role); ?>
+        </span>
 
-            <strong>Role:</strong>
+    </div>
 
-            <span class="badge bg-success">
+    <div class="research-art">
 
-                <?php echo htmlspecialchars($role); ?>
+        <div class="art-orbit orbit-a"></div>
+        <div class="art-orbit orbit-b"></div>
 
-            </span>
+        <div class="art-center">
+            <i class="bi bi-lightbulb-fill"></i>
+        </div>
 
+        <div class="art-icon art-one">
+            <i class="bi bi-file-earmark-text-fill"></i>
+        </div>
+
+        <div class="art-icon art-two">
+            <i class="bi bi-award-fill"></i>
+        </div>
+
+        <div class="art-icon art-three">
+            <i class="bi bi-people-fill"></i>
+        </div>
+
+        <div class="art-icon art-four">
+            <i class="bi bi-graph-up-arrow"></i>
         </div>
 
     </div>
+
+</div>
 
 
     <!-- Dashboard Statistics -->
