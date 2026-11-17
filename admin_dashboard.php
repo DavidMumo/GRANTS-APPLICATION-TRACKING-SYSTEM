@@ -15,7 +15,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== "Administrator") {
 }
 
 // Get dashboard statistics
-function getCount($conn, $sql) {
+function getCount(mysqli $conn, string $sql): int {
     $result = mysqli_query($conn, $sql);
 
     if (!$result) {
@@ -48,7 +48,7 @@ $adminName = $_SESSION['full_name'] ?? $_SESSION['fullname'] ?? 'Administrator';
 */
 
 // Find the status column in the specified table
-function getStatusColumn($conn, $table) {
+function getStatusColumn(mysqli $conn, string $table): string {
 
     $allowedTables = [
         'grant_applications',
@@ -83,7 +83,7 @@ function getStatusColumn($conn, $table) {
 }
 
 // Get application totals grouped by status
-function getApplicationStatusCounts($conn, $table) {
+function getApplicationStatusCounts(mysqli $conn, string $table): array {
 
     $statusColumn = getStatusColumn($conn, $table);
 
