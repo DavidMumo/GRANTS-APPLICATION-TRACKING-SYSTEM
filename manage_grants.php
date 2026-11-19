@@ -1,52 +1,111 @@
+
 <?php
 session_start();
 include("db_connect.php");
-include("navbar.php");
 
+// =============================================
+// ADMINISTRATOR ACCESS CONTROL
+// =============================================
 
-if(isset($_GET['success']))
-{
-    if($_GET['success']=="deleted")
-    {
-        echo "<div class='alert alert-success'>
-        Grant deleted successfully.
-        </div>";
-    }
-}
-
-
-if(!isset($_SESSION['user_id']))
-{
+if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
-if($_SESSION['role'] != "Administrator")
-{
+if (($_SESSION['role'] ?? '') !== "Administrator") {
+    http_response_code(403);
     die("Access Denied!");
 }
 
-// Search
-$search = "";
+// =============================================
+// CSRF TOKEN
+// =============================================
 
-if(isset($_GET['search']))
-{
-    $search = mysqli_real_escape_string($conn,$_GET['search']);
-
-    $sql = "SELECT * FROM grants
-            WHERE title LIKE '%$search%'
-            OR organization LIKE '%$search%'
-            OR description LIKE '%$search%'
-            ORDER BY deadline ASC";
-}
-else
-{
-    $sql = "SELECT * FROM grants
-            ORDER BY deadline ASC";
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-$result = mysqli_query($conn,$sql);
+$csrfToken = $_SESSION['csrf_token'];
+
+// =============================================
+// SUCCESS AND ERROR MESSAGES
+// =============================================
+
+$message = "";
+$messageType = "";
+
+if (isset($_GET['success']) && $_GET['success'] === "deleted") {
+
+    $message = "Grant deleted successfully.";
+    $messageType = "success";
+
+} elseif (isset($_GET['error'])) {
+
+    switch ($_GET['error']) {
+
+        case "linked":
+            $message = "This grant cannot be deleted because it has related applications. Keep the grant record to preserve application history.";
+            $messageType = "warning";
+            break;
+
+        case "invalid":
+            $message = "Invalid grant ID.";
+            $messageType = "danger";
+            break;
+
+        case "notfound":
+            $message = "The selected grant was not found.";
+            $messageType = "warning";
+            break;
+
+        default:
+            $message = "An error occurred while deleting the grant.";
+            $messageType = "danger";
+    }
+}
+
+// =============================================
+// SEARCH GRANTS
+// =============================================
+
+$search = trim($_GET['search'] ?? '');
+
+if ($search !== '') {
+
+    $searchTerm = "%" . $search . "%";
+
+    $stmt = mysqli_prepare(
+        $conn,
+        "SELECT * FROM grants
+         WHERE title LIKE ?
+         OR organization LIKE ?
+         OR description LIKE ?
+         ORDER BY deadline ASC"
+    );
+
+    mysqli_stmt_bind_param(
+        $stmt,
+        "sss",
+        $searchTerm,
+        $searchTerm,
+        $searchTerm
+    );
+
+} else {
+
+    $stmt = mysqli_prepare(
+        $conn,
+        "SELECT * FROM grants ORDER BY deadline ASC"
+    );
+}
+
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+// Include navbar after access checks and processing
+include("navbar.php");
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -62,6 +121,22 @@ $result = mysqli_query($conn,$sql);
 <body>
 
 <div class="container mt-4">
+
+<?php if ($message !== ""): ?>
+
+    <div class="alert alert-<?php echo htmlspecialchars($messageType); ?> alert-dismissible fade show">
+
+        <?php echo htmlspecialchars($message); ?>
+
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert">
+        </button>
+
+    </div>
+
+<?php endif; ?>
 
 <h2 class="text-primary">Manage Grants</h2>
 
@@ -153,13 +228,31 @@ else
 Edit
 </a>
 
-<a href="delete_grant.php?id=<?php echo $row['grant_id']; ?>"
-class="btn btn-danger btn-sm"
-onclick="return confirm('Are you sure you want to delete this grant?');">
 
-Delete
+<form
+    method="POST"
+    action="delete_grant.php"
+    style="display:inline;"
+    onsubmit="return confirm('Are you sure you want to delete this grant? This action cannot be undone.');">
 
-</a>
+    <input
+        type="hidden"
+        name="grant_id"
+        value="<?php echo (int)$row['grant_id']; ?>"
+    >
+
+    <input
+        type="hidden"
+        name="csrf_token"
+        value="<?php echo htmlspecialchars($csrfToken); ?>"
+    >
+
+    <button type="submit" class="btn btn-danger btn-sm">
+        <i class="bi bi-trash"></i> Delete
+    </button>
+
+</form>
+
 
 
 </td>

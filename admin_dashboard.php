@@ -851,6 +851,17 @@ $collaborationChartValues = [
             Logout
         </a>
 
+        
+                    <a href="create_admin.php" class="btn btn-primary">
+    <i class="bi bi-person-plus"></i>
+    Create Administrator
+</a>
+
+<a href="discover_grants.php" class="btn btn-primary">
+    <i class="bi bi-globe me-2"></i>
+    Discover Online Grants
+</a>
+
     </aside>
 
 
@@ -1195,6 +1206,8 @@ $collaborationChartValues = [
                         Open <i class="bi bi-arrow-right"></i>
                     </a>
 
+                    
+
                 </div>
 
 
@@ -1215,7 +1228,7 @@ $collaborationChartValues = [
                     </a>
 
                 </div>
-
+                
             </div>
 
         </section>

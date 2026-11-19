@@ -675,7 +675,244 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
 
         }
 
+
+/* =========================================
+   GRANTCONNECT PROFESSIONAL ANIMATIONS
+========================================= */
+
+/* Main page entrance */
+.page-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+/* Welcome section slides in */
+.welcome-section {
+    animation: slideFromLeft 1s ease both;
+}
+
+/* Login card slides in */
+.login-card {
+    animation: slideFromRight 1s ease both;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.login-card:hover {
+    box-shadow: 0 28px 75px rgba(30, 58, 110, 0.16);
+}
+
+/* Login icon floating animation */
+.login-icon {
+    animation: floatIcon 3s ease-in-out infinite;
+}
+
+/* Brand icon gentle pulse */
+.brand-icon {
+    animation: iconPulse 3s ease-in-out infinite;
+}
+
+/* Feature cards appear one after another */
+.feature-item {
+    animation: fadeUp 0.8s ease both;
+}
+
+.feature-item:nth-child(1) {
+    animation-delay: 0.3s;
+}
+
+.feature-item:nth-child(2) {
+    animation-delay: 0.45s;
+}
+
+.feature-item:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.feature-item:nth-child(4) {
+    animation-delay: 0.75s;
+}
+
+/* Input interaction */
+.form-control,
+.form-select {
+    transition: border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    transform: translateY(-2px);
+}
+
+/* Animated login button */
+.login-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s ease;
+}
+
+.login-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 70%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.35),
+        transparent
+    );
+    transform: skewX(-25deg);
+    transition: left 0.7s ease;
+}
+
+.login-button:hover::before {
+    left: 140%;
+}
+
+.login-button:hover {
+    transform: translateY(-3px) scale(1.01);
+}
+
+.login-button:active {
+    transform: scale(0.98);
+}
+
+/* Animated welcome label */
+.welcome-label {
+    animation: fadeUp 0.9s ease both;
+}
+
+/* Feature icon hover */
+.feature-icon {
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.feature-item:hover .feature-icon {
+    transform: rotate(-7deg) scale(1.1);
+    background: #dce8ff;
+}
+
+/* Background decorative floating circles */
+.page-wrapper::before,
+.page-wrapper::after {
+    content: "";
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(3px);
+}
+
+.page-wrapper::before {
+    top: 15%;
+    right: -100px;
+    background: rgba(96, 165, 250, 0.09);
+    animation: backgroundFloat 9s ease-in-out infinite;
+}
+
+.page-wrapper::after {
+    bottom: 8%;
+    left: -110px;
+    background: rgba(139, 92, 246, 0.08);
+    animation: backgroundFloat 11s ease-in-out infinite reverse;
+}
+
+/* Keep page content above decorative circles */
+.top-navbar,
+.main-content,
+.footer {
+    position: relative;
+    z-index: 1;
+}
+
+/* Animation keyframes */
+@keyframes slideFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-45px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(45px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatIcon {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes iconPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 0 9px rgba(37, 99, 235, 0);
+    }
+}
+
+@keyframes backgroundFloat {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    50% {
+        transform: translateY(-35px) translateX(20px);
+    }
+}
+
+/* Accessibility: respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+        @media (max-width: 576px) {
+            /* Existing mobile styles */
+        }
+
+    
+    
     </style>
+
+    
 
 </head>
 
